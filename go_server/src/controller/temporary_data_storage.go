@@ -2,11 +2,11 @@ package controller
 
 import (
 	"distributed/sms/src/model"
+	"distributed/sms/src/utils"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/logs"
 	"github.com/gomodule/redigo/redis"
-	"time"
 )
 
 type TemporaryDataStorage struct{
@@ -14,21 +14,8 @@ type TemporaryDataStorage struct{
 }
 
 func NewTemporaryDataStorage(redisHost string) *TemporaryDataStorage{
-	pool := &redis.Pool{
-		MaxActive:200,
-		Dial:func()(redis.Conn,error) {
-			conn,err := redis.Dial("tcp", redisHost)
-			if err!=nil{
-				logs.Error(err)
-				return nil,err
-			}
-			return conn,nil
-		},
-		IdleTimeout:time.Second,
-		Wait:true,
-	}
 	return &TemporaryDataStorage{
-		connPool: pool,
+		connPool: utils.GetRedisConnPool(redisHost),
 	}
 }
 

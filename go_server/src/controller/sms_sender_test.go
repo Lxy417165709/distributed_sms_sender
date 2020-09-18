@@ -29,9 +29,6 @@ func TestSingleSmsSender(t *testing.T) {
 		userIds = append(userIds,fmt.Sprintf("%d",i))
 	}
 
-
-
-
 	for {
 		for _,userId := range userIds{
 			go func(userId string) {
