@@ -35,6 +35,22 @@ func NewHashLoop(maxNum int64,cacheRedisPool map[int64]*redis.Pool) *HashLoop{
 	}
 }
 
+func (h *HashLoop) Flush() error{
+	for _,redisPool := range h.cacheRedisPool{
+		conn := redisPool.Get()
+		_,err := conn.Do("flushall")
+		if err!=nil{
+			logs.Error(err)
+			return err
+		}
+		if err := conn.Close();err!=nil{
+			logs.Error(err)
+			return err
+		}
+	}
+	return nil
+}
+
 func (h *HashLoop)GetRedisPool(aroundRedisPoolNum int64) *redis.Pool{
 	redisPoolNumIndex := getIndexOfFirstGreaterOrEqual(h.redisPoolSortedNums,aroundRedisPoolNum)
 	redisPoolNum := h.redisPoolSortedNums[redisPoolNumIndex%len(h.redisPoolSortedNums)]

@@ -18,6 +18,13 @@ func NewDistributedCache(hashLoop *HashLoop) *DistributedCache{
 		hashLoop: hashLoop,
 	}
 }
+func (d *DistributedCache) Flush() error{
+	if err := d.hashLoop.Flush();err!=nil{
+		logs.Error(err)
+		return err
+	}
+	return nil
+}
 
 func (d *DistributedCache) Set(key string, value interface{}) error {
 	conn := d.getConnOfStoringKey(key)

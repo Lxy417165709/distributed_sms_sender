@@ -9,61 +9,52 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-type TemporaryDataStorage struct{
-	connPool *redis.Pool
+type TemporaryDataStorage struct {
+	distributedCache *utils.DistributedCache
 }
 
-func NewTemporaryDataStorage(redisHost string) *TemporaryDataStorage{
+func NewTemporaryDataStorage(distributedCache *utils.DistributedCache) *TemporaryDataStorage {
 	return &TemporaryDataStorage{
-		connPool: utils.GetRedisConnPool(redisHost),
+		distributedCache: distributedCache,
 	}
 }
 
-func (t *TemporaryDataStorage) SetUserCertification(userId string,certification *model.Certification)error {
-	conn := t.connPool.Get()
-	defer func() {
-		if err := conn.Close();err!=nil{
-			logs.Error(err)
-		}
-	}()
-	certificationKey := fmt.Sprintf("userCertification:%s",userId)
-	certificationBytes,err  := json.Marshal(certification)
-	if err!=nil{
-		logs.Error(err)
-		return  err
-	}
-	if _,err := conn.Do("set",certificationKey,certificationBytes);err!=nil{
+func (t *TemporaryDataStorage) SetUserCertification(userId string, certification *model.Certification) error {
+	certificationKey := fmt.Sprintf("userCertification:%s", userId)
+	if err := t.distributedCache.Set(certificationKey, certification); err != nil {
 		logs.Error(err)
 		return err
 	}
 	return nil
 }
-func (t *TemporaryDataStorage) GetUserCertification(userId string) (*model.Certification,error) {
-	conn := t.connPool.Get()
-	defer func() {
-		if err := conn.Close();err!=nil{
-			logs.Error(err)
-		}
-	}()
-	certificationKey := fmt.Sprintf("userCertification:%s",userId)
 
-	reply,err := conn.Do("get",certificationKey)
-	if err!=nil{
+func (t *TemporaryDataStorage) GetUserCertification(userId string) (*model.Certification, error) {
+	certificationKey := fmt.Sprintf("userCertification:%s", userId)
+	reply, err := t.distributedCache.Get(certificationKey)
+	if err != nil {
 		logs.Error(err)
-		return nil,err
+		return nil, err
 	}
-	replyBytes,err := redis.Bytes(reply,err)
-	if replyBytes==nil{
-		return nil,nil
+	replyBytes, err := redis.Bytes(reply, err)
+	if replyBytes == nil {
+		return nil, nil
 	}
-	if err!=nil{
+	if err != nil {
 		logs.Error(err)
-		return nil,err
+		return nil, err
 	}
-	certification:=&model.Certification{}
-	if err := json.Unmarshal(replyBytes,certification);err!=nil{
+	certification := &model.Certification{}
+	if err := json.Unmarshal(replyBytes, certification); err != nil {
 		logs.Error(err)
-		return nil,err
+		return nil, err
 	}
-	return certification,nil
+	return certification, nil
+}
+
+func (t *TemporaryDataStorage) Flush() error{
+	if err := t.distributedCache.Flush();err!=nil{
+		logs.Error(err)
+		return err
+	}
+	return nil
 }

@@ -37,6 +37,11 @@ func (s *SmsSender)GetHasSendTimes() int64{
 
 
 func (s *SmsSender) Flush() error {
+	if err := s.userCertificationStorage.Flush();err!=nil{
+		logs.Error(err)
+		return err
+	}
+
 	conn, err := redis.Dial("tcp", s.redisHost)
 	if err != nil {
 		logs.Error(err)

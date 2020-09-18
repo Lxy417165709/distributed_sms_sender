@@ -22,7 +22,6 @@ func TestDistributedCache(t *testing.T) {
 		16: GetRedisConnPool(redisHosts[2]),
 		24: GetRedisConnPool(redisHosts[3]),
 	})
-
 	distributedCache := NewDistributedCache(hashLoop)
 	keyValues := map[string]string{
 		"":           "a",
