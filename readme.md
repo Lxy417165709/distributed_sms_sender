@@ -11,3 +11,6 @@
 4. 使用 `Redis`集群  + 一致性哈希算法 实现分布式缓存。
 5. 代码优美。  `:)`
 
+
+## 相关信息
+1. [架构](https://www.processon.com/view/link/5f64edc66376894e3278ceba)
