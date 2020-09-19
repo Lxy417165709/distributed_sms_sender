@@ -11,7 +11,11 @@ func init(){
 }
 
 func TestMqReceiver(t *testing.T) {
-	kafkaHosts := []string{"120.26.162.39:9092"}
+	kafkaHosts := []string{
+		"120.26.162.39:15000",
+		//"120.26.162.39:15001",
+		//"120.26.162.39:15002",
+	}
 	topic := "test_topic"
 	mqReceiver := NewMqReceiver(kafkaHosts)
 	if err := mqReceiver.Receive(topic);err!=nil{

@@ -29,3 +29,23 @@ services:
     volumes:
       - $PWD/nginx/client:/usr/share/nginx/html 
       - $PWD/nginx/conf.d:/etc/nginx/conf.d
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - 35000:3000
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    security_opt:
+      - seccomp:unconfined
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - 40000:3306
