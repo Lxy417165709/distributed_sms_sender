@@ -1,0 +1,31 @@
+version:
+    '3'
+services:
+  golang0:
+    build: ./go_server
+    container_name: distributed_golang_0
+    restart: always
+    ports:
+      - "10000:8080"
+  golang1:
+    build: ./go_server
+    container_name: distributed_golang_1
+    restart: always
+    ports:
+      - "10001:8080"
+  golang2:
+    build: ./go_server
+    container_name: distributed_golang_2
+    restart: always
+    ports:
+      - "10002:8080"
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "5000:80"
+    volumes:
+      - $PWD/nginx/client:/usr/share/nginx/html 
+      - $PWD/nginx/conf.d:/etc/nginx/conf.d
