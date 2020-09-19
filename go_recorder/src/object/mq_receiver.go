@@ -1,12 +1,19 @@
 package object
 
 import (
+	"distributed/go_recorder/src/model"
+	"fmt"
 	"github.com/Shopify/sarama"
 	"github.com/astaxie/beego/logs"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"time"
 )
+
 
 type MqReceiver struct {
 	kafkaConsumer sarama.Consumer
+	db *gorm.DB
 }
 
 func NewMqReceiver(kafkaHosts []string) *MqReceiver {
@@ -20,6 +27,7 @@ func NewMqReceiver(kafkaHosts []string) *MqReceiver {
 	}
 	return &MqReceiver{
 		kafkaConsumer: consumer,
+		db: getDB(),
 	}
 }
 
@@ -39,19 +47,58 @@ func (m *MqReceiver) Receive(topic string) error{
 			logs.Error(err)
 			return err
 		}
+
 		go func(partitionConsumer sarama.PartitionConsumer) {
 			for {
 				select {
-				case m := <-partitionConsumer.Messages():
+				case msg := <-partitionConsumer.Messages():
 					logs.Info(
 						"Receiving { key: %s, value: %s, offset: %d } success",
-						m.Key,
-						m.Value,
-						m.Offset,
+						msg.Key,
+						msg.Value,
+						msg.Offset,
+					)
+					if !m.db.HasTable(&model.InvokeSituation{}) {
+						m.db.CreateTable(&model.InvokeSituation{})
+					}
+					m.db.Create(&model.InvokeSituation{
+						UserId: string(msg.Key),
+						InvokeTime:time.Now(),
+					})
+					logs.Info(
+						"saving { key: %s, value: %s, offset: %d } success",
+						msg.Key,
+						msg.Value,
+						msg.Offset,
 					)
 				}
 			}
 		}(partitionConsumer)
 	}
 	select {}
+}
+
+
+
+
+
+func getDB() *gorm.DB {
+	user := "root"
+	password := "123456"
+	host:="120.26.162.39:40000"
+	dbName := "mysql"
+	db, err := gorm.Open(
+		"mysql",
+		fmt.Sprintf(
+			"%s:%s@(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+			user,
+			password,
+			host,
+			dbName,
+		),
+	)
+	if err != nil {
+		panic(err)
+	}
+	return db
 }
