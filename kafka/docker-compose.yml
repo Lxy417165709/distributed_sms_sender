@@ -1,0 +1,24 @@
+# 这个 docker-compose 无法使用
+
+version: '3'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    restart: unless-stopped
+    ports:
+      - "2181:2181"
+    container_name: zookeeper
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - '9092:9092'
+    container_name: kafka
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_BROKER_ID=0
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://120.26.162.398:9092
+    depends_on:
+      - zookeeper

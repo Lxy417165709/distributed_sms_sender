@@ -11,6 +11,7 @@ import (
 )
 
 type SmsSender struct {
+
 	redisHost                string
 	userCertificationStorage *TemporaryDataStorage
 	senderDistributeMutex    *utils.DistributedMutex
@@ -20,7 +21,12 @@ type SmsSender struct {
 	hasSendTimes             int64
 }
 
-func NewSmsSender(redisHost string, sendTimesPerTerm int, term time.Duration, userCertificationStorage *TemporaryDataStorage) *SmsSender {
+func NewSmsSender(
+	redisHost string,
+	sendTimesPerTerm int,
+	term time.Duration,
+	userCertificationStorage *TemporaryDataStorage,
+	) *SmsSender {
 	return &SmsSender{
 		redisHost:                redisHost,
 		senderDistributeMutex:    utils.NewDistributedMutex(redisHost, "smsSenderLock", 1),
