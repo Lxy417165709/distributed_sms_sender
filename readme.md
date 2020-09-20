@@ -2,8 +2,6 @@
 这是一个分布式的短信发送器(短信发送没实现)。实现了一段时间内，同一用户最多发送 `max` 次短信的限制。
 
 ## 技术栈
-- [ ] 前端
-	- `Nginx`
 - [ ] 后端
 	- `Go`
 - [ ] 存储
@@ -12,7 +10,11 @@
 - [ ] 中间件
 	- `Docker`
 	- `Kafka`
+	- `Nginx`
 	- `Grafana`
+- [ ] 其他
+	- `yaml`
+	- `shell`
 
 ## 特点
 1. 同一用户可位于不同机器。
@@ -27,6 +29,6 @@
 
 
 ## 相关信息
-1. [grafana 数据可视化在线观看](http://120.26.162.39:35000/d/qhpaOPdMz/invoke_situation?orgId=1&from=1600560096000&to=1600563340000)
+1. [grafana 数据可视化在线观看](http://120.26.162.39:35000/d/qhpaOPdMz/invoke_situation?orgId=1&from=now-1h&to=now)
 2. [架构](https://www.processon.com/view/link/5f64edc66376894e3278ceba)
 

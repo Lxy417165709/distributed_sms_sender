@@ -1,4 +1,4 @@
-package utils
+package middleware
 
 import (
 	"github.com/astaxie/beego/logs"
@@ -14,7 +14,7 @@ type HashLoop struct{
 
 }
 
-func NewHashLoop(maxNum int64,cacheRedisPool map[int64]*redis.Pool) *HashLoop{
+func NewHashLoop(maxNum int64,cacheRedisPool map[int64]*redis.Pool) *HashLoop {
 	var redisPoolSortedNums []int64
 	for num,_ := range cacheRedisPool{
 		redisPoolSortedNums = append(redisPoolSortedNums,num)

@@ -1,4 +1,4 @@
-package utils
+package middleware
 
 import (
 	"crypto/md5"
@@ -13,11 +13,12 @@ type DistributedCache struct {
 	hashLoop *HashLoop
 }
 
-func NewDistributedCache(hashLoop *HashLoop) *DistributedCache{
+func NewDistributedCache(hashLoop *HashLoop) *DistributedCache {
 	return &DistributedCache{
 		hashLoop: hashLoop,
 	}
 }
+
 func (d *DistributedCache) Flush() error{
 	if err := d.hashLoop.Flush();err!=nil{
 		logs.Error(err)

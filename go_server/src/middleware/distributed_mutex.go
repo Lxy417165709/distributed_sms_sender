@@ -1,6 +1,7 @@
-package utils
+package middleware
 
 import (
+	"distributed/sms/src/utils"
 	"github.com/astaxie/beego/logs"
 	"github.com/gomodule/redigo/redis"
 	"time"
@@ -18,7 +19,7 @@ type DistributedMutex struct {
 
 func NewDistributedMutex(redisHost string, lockKey string, retryLockInterval time.Duration) *DistributedMutex {
 	return &DistributedMutex{
-		connPool:          GetRedisConnPool(redisHost),
+		connPool:          utils.GetRedisConnPool(redisHost),
 		lockValue:         valueOfLock,
 		lockKey:           lockKey,
 		retryLockInterval: retryLockInterval,

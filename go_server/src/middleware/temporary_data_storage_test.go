@@ -1,4 +1,4 @@
-package controller
+package middleware
 
 import (
 	"distributed/sms/src/model"
@@ -18,13 +18,13 @@ func TestTemporaryDataStorage(t *testing.T) {
 		"120.26.162.39:20002",
 		"120.26.162.39:20003",
 	}
-	hashLoop := utils.NewHashLoop(30, map[int64]*redis.Pool{
+	hashLoop := NewHashLoop(30, map[int64]*redis.Pool{
 		0:  utils.GetRedisConnPool(redisHosts[0]),
 		8:  utils.GetRedisConnPool(redisHosts[1]),
 		16: utils.GetRedisConnPool(redisHosts[2]),
 		24: utils.GetRedisConnPool(redisHosts[3]),
 	})
-	distributedCache := utils.NewDistributedCache(hashLoop)
+	distributedCache := NewDistributedCache(hashLoop)
 	temporaryDataStorage := NewTemporaryDataStorage(distributedCache)
 	if err := temporaryDataStorage.SetUserCertification(userId,&model.Certification{
 		RemainSendTimes:8,

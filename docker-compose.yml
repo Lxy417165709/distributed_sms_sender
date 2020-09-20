@@ -36,6 +36,8 @@ services:
     restart: always
     ports:
       - 35000:3000
+    environment:
+      - TZ=Asia/Shanghai
 
   mysql:
     image: mysql
@@ -49,3 +51,5 @@ services:
       - ./mysql/data:/var/lib/mysql
     ports:
       - 40000:3306
+    environment:
+      - TZ=Asia/Shanghai

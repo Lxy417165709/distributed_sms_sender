@@ -1,4 +1,4 @@
-package object
+package middleware
 
 import (
 	"github.com/Shopify/sarama"
@@ -9,7 +9,7 @@ type MqSender struct {
 	kafkaProducer sarama.SyncProducer
 }
 
-func NewMqSender(kafkaHosts []string) *MqSender{
+func NewMqSender(kafkaHosts []string) *MqSender {
 	kafkaConf := sarama.NewConfig()
 	kafkaConf.Producer.RequiredAcks = sarama.WaitForAll
 	kafkaConf.Producer.Partitioner = sarama.NewRandomPartitioner

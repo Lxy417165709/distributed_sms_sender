@@ -1,8 +1,7 @@
-package controller
+package middleware
 
 import (
 	"distributed/sms/src/model"
-	"distributed/sms/src/utils"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/logs"
@@ -10,10 +9,10 @@ import (
 )
 
 type TemporaryDataStorage struct {
-	distributedCache *utils.DistributedCache
+	distributedCache *DistributedCache
 }
 
-func NewTemporaryDataStorage(distributedCache *utils.DistributedCache) *TemporaryDataStorage {
+func NewTemporaryDataStorage(distributedCache *DistributedCache) *TemporaryDataStorage {
 	return &TemporaryDataStorage{
 		distributedCache: distributedCache,
 	}

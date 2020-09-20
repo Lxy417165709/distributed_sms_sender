@@ -1,6 +1,7 @@
-package controller
+package device
 
 import (
+	"distributed/sms/src/middleware"
 	"distributed/sms/src/utils"
 	"fmt"
 	"github.com/astaxie/beego/logs"
@@ -11,6 +12,8 @@ import (
 	"time"
 )
 
+const redisHost = "127.0.1.1:6379"
+
 func TestSingleSmsSender(t *testing.T) {
 	logs.SetLogFuncCall(true)
 	logs.SetLogFuncCallDepth(3)
@@ -20,18 +23,25 @@ func TestSingleSmsSender(t *testing.T) {
 		"120.26.162.39:20002",
 		"120.26.162.39:20003",
 	}
-	hashLoop := utils.NewHashLoop(30, map[int64]*redis.Pool{
+	kafkaHosts := []string{
+		"120.26.162.39:15000",
+		//"120.26.162.39:15001",
+		//"120.26.162.39:15002",
+	}
+	hashLoop := middleware.NewHashLoop(30, map[int64]*redis.Pool{
 		0:  utils.GetRedisConnPool(redisHosts[0]),
 		8:  utils.GetRedisConnPool(redisHosts[1]),
 		16: utils.GetRedisConnPool(redisHosts[2]),
 		24: utils.GetRedisConnPool(redisHosts[3]),
 	})
-	distributedCache := utils.NewDistributedCache(hashLoop)
+	distributedCache := middleware.NewDistributedCache(hashLoop)
 	smsSender := NewSmsSender(
 		redisHost,
 		100,
 		1*time.Second,
-		NewTemporaryDataStorage(distributedCache),
+		middleware.NewTemporaryDataStorage(distributedCache),
+		middleware.NewMqSender(kafkaHosts),
+		"sms_sender",
 	)
 	if err := smsSender.Flush(); err != nil {
 		logs.Error(err)
@@ -69,18 +79,18 @@ func TestMulSmsSender(t *testing.T) {
 			"120.26.162.39:20002",
 			"120.26.162.39:20003",
 		}
-		hashLoop := utils.NewHashLoop(30, map[int64]*redis.Pool{
+		hashLoop := middleware.NewHashLoop(30, map[int64]*redis.Pool{
 			0:  utils.GetRedisConnPool(redisHosts[0]),
 			8:  utils.GetRedisConnPool(redisHosts[1]),
 			16: utils.GetRedisConnPool(redisHosts[2]),
 			24: utils.GetRedisConnPool(redisHosts[3]),
 		})
-		distributedCache := utils.NewDistributedCache(hashLoop)
+		distributedCache := middleware.NewDistributedCache(hashLoop)
 		smsSender := NewSmsSender(
 			redisHost,
 			sendTimesPerTerm,
 			15*time.Second,
-			NewTemporaryDataStorage(distributedCache),
+			middleware.NewTemporaryDataStorage(distributedCache),
 		)
 		if err := smsSender.Flush();err!=nil{
 			logs.Error(err)

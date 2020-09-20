@@ -16,7 +16,7 @@ func TestMqReceiver(t *testing.T) {
 		//"120.26.162.39:15001",
 		//"120.26.162.39:15002",
 	}
-	topic := "test_topic"
+	topic := "sms_sender"
 	mqReceiver := NewMqReceiver(kafkaHosts)
 	if err := mqReceiver.Receive(topic);err!=nil{
 		logs.Error(err)

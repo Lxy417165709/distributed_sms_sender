@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9593be62-0f0c-43a4-91ad-83a368835aa4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/SMS.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/sms_sender.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/sms_sender_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/temporary_data_storage.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/temporary_data_storage_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/sms_sender.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/distributed_mutex.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,12 +16,6 @@
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="983" />
   </component>
   <component name="ProjectId" id="1hgcW8JClPFG3Y93kVnOgmvd1i3" />
   <component name="ProjectViewState">

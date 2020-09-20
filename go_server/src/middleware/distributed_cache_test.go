@@ -1,6 +1,7 @@
-package utils
+package middleware
 
 import (
+	"distributed/sms/src/utils"
 	"fmt"
 	"github.com/astaxie/beego/logs"
 	"github.com/gomodule/redigo/redis"
@@ -17,10 +18,10 @@ func TestDistributedCache(t *testing.T) {
 		"120.26.162.39:20003",
 	}
 	hashLoop := NewHashLoop(30, map[int64]*redis.Pool{
-		0:  GetRedisConnPool(redisHosts[0]),
-		8:  GetRedisConnPool(redisHosts[1]),
-		16: GetRedisConnPool(redisHosts[2]),
-		24: GetRedisConnPool(redisHosts[3]),
+		0:  utils.GetRedisConnPool(redisHosts[0]),
+		8:  utils.GetRedisConnPool(redisHosts[1]),
+		16: utils.GetRedisConnPool(redisHosts[2]),
+		24: utils.GetRedisConnPool(redisHosts[3]),
 	})
 	distributedCache := NewDistributedCache(hashLoop)
 	keyValues := map[string]string{

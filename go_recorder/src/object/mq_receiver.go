@@ -2,6 +2,7 @@ package object
 
 import (
 	"distributed/go_recorder/src/model"
+	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
 	"github.com/astaxie/beego/logs"
@@ -17,9 +18,11 @@ type MqReceiver struct {
 }
 
 func NewMqReceiver(kafkaHosts []string) *MqReceiver {
+	config := sarama.NewConfig()
+	config.Consumer.Offsets.Initial = sarama.OffsetNewest
 	consumer, err := sarama.NewConsumer(
 		kafkaHosts,
-		nil,
+		config,
 	)
 	if err != nil {
 		logs.Error(err)
@@ -52,25 +55,7 @@ func (m *MqReceiver) Receive(topic string) error{
 			for {
 				select {
 				case msg := <-partitionConsumer.Messages():
-					logs.Info(
-						"Receiving { key: %s, value: %s, offset: %d } success",
-						msg.Key,
-						msg.Value,
-						msg.Offset,
-					)
-					if !m.db.HasTable(&model.InvokeSituation{}) {
-						m.db.CreateTable(&model.InvokeSituation{})
-					}
-					m.db.Create(&model.InvokeSituation{
-						UserId: string(msg.Key),
-						InvokeTime:time.Now(),
-					})
-					logs.Info(
-						"saving { key: %s, value: %s, offset: %d } success",
-						msg.Key,
-						msg.Value,
-						msg.Offset,
-					)
+					m.Handle(msg)
 				}
 			}
 		}(partitionConsumer)
@@ -78,7 +63,43 @@ func (m *MqReceiver) Receive(topic string) error{
 	select {}
 }
 
+func (m *MqReceiver) Handle(msg *sarama.ConsumerMessage) {
+	logs.Info(
+		"Receiving { key: %s, value: %s, offset: %d } success",
+		msg.Key,
+		msg.Value,
+		msg.Offset,
+	)
 
+	switch string(msg.Key){
+	case "message":
+		var message model.Message
+		if err := json.Unmarshal(msg.Value,&message);err!=nil{
+			logs.Error(err)
+			return
+		}
+		if !m.db.HasTable(&model.Message{}) {
+			m.db.CreateTable(&model.Message{})
+		}
+		m.db.Create(&message)
+	default:
+		if !m.db.HasTable(&model.InvokeSituation{}) {
+			m.db.CreateTable(&model.InvokeSituation{})
+		}
+		m.db.Create(&model.InvokeSituation{
+			UserId: string(msg.Key),
+			InvokeTime:time.Now(),
+		})
+	}
+
+
+	logs.Info(
+		"saving { key: %s, value: %s, offset: %d } success",
+		msg.Key,
+		msg.Value,
+		msg.Offset,
+	)
+}
 
 
 
