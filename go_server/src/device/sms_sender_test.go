@@ -2,6 +2,7 @@ package device
 
 import (
 	"distributed/sms/src/middleware"
+	"distributed/sms/src/model"
 	"distributed/sms/src/utils"
 	"fmt"
 	"github.com/astaxie/beego/logs"
@@ -12,37 +13,14 @@ import (
 	"time"
 )
 
-const redisHost = "127.0.1.1:6379"
 
-func TestSingleSmsSender(t *testing.T) {
+func init() {
 	logs.SetLogFuncCall(true)
 	logs.SetLogFuncCallDepth(3)
-	redisHosts := []string{
-		"120.26.162.39:20000",
-		"120.26.162.39:20001",
-		"120.26.162.39:20002",
-		"120.26.162.39:20003",
-	}
-	kafkaHosts := []string{
-		"120.26.162.39:15000",
-		//"120.26.162.39:15001",
-		//"120.26.162.39:15002",
-	}
-	hashLoop := middleware.NewHashLoop(30, map[int64]*redis.Pool{
-		0:  utils.GetRedisConnPool(redisHosts[0]),
-		8:  utils.GetRedisConnPool(redisHosts[1]),
-		16: utils.GetRedisConnPool(redisHosts[2]),
-		24: utils.GetRedisConnPool(redisHosts[3]),
-	})
-	distributedCache := middleware.NewDistributedCache(hashLoop)
-	smsSender := NewSmsSender(
-		redisHost,
-		100,
-		1*time.Second,
-		middleware.NewTemporaryDataStorage(distributedCache),
-		middleware.NewMqSender(kafkaHosts),
-		"sms_sender",
-	)
+}
+
+func TestSingleSmsSender(t *testing.T) {
+	smsSender := getSmsSender()
 	if err := smsSender.Flush(); err != nil {
 		logs.Error(err)
 		return
@@ -54,7 +32,11 @@ func TestSingleSmsSender(t *testing.T) {
 	for {
 		for _, userId := range userIds {
 			go func(userId string) {
-				result := smsSender.Send(userId)
+				result := smsSender.Send(&model.Message{
+					SenderId: userId,
+					ReceiverId: "-",
+					Content: "test",
+				})
 				if result.IsSuccess {
 					logs.Info("[%s] 号用户请求成功。返回消息：%s", userId, result.Msg)
 				} else {
@@ -64,58 +46,35 @@ func TestSingleSmsSender(t *testing.T) {
 			time.Sleep(10 * time.Millisecond)
 		}
 	}
-	select {}
 }
 
 func TestMulSmsSender(t *testing.T) {
-	logs.SetLogFuncCall(true)
-	logs.SetLogFuncCallDepth(3)
+	rand.Seed(time.Now().UnixNano())
+
 	sendTimesPerTerm := 20
 	smsSenders := make([]*SmsSender, 0)
 	for i := 0; i < 10; i++ {
-		redisHosts := []string{
-			"120.26.162.39:20000",
-			"120.26.162.39:20001",
-			"120.26.162.39:20002",
-			"120.26.162.39:20003",
-		}
-		hashLoop := middleware.NewHashLoop(30, map[int64]*redis.Pool{
-			0:  utils.GetRedisConnPool(redisHosts[0]),
-			8:  utils.GetRedisConnPool(redisHosts[1]),
-			16: utils.GetRedisConnPool(redisHosts[2]),
-			24: utils.GetRedisConnPool(redisHosts[3]),
-		})
-		distributedCache := middleware.NewDistributedCache(hashLoop)
-		smsSender := NewSmsSender(
-			redisHost,
-			sendTimesPerTerm,
-			15*time.Second,
-			middleware.NewTemporaryDataStorage(distributedCache),
-		)
-		if err := smsSender.Flush();err!=nil{
+		smsSender := getSmsSender()
+		if err := smsSender.Flush(); err != nil {
 			logs.Error(err)
 			return
 		}
 		smsSenders = append(smsSenders, smsSender)
-	}
-	for i := 0; i < len(smsSenders); i++ {
-		if err := smsSenders[i].Flush(); err != nil {
-			logs.Error(err)
-			return
-		}
 	}
 	var sendTimes int64 = 0
 	userIds := make([]string, 0)
 	for i := 0; i < 10; i++ {
 		userIds = append(userIds, fmt.Sprintf("%d", i))
 	}
-
-	rand.Seed(time.Now().UnixNano())
 	for {
 		for _, userId := range userIds {
 			go func(userId string) {
 				senderNum := rand.Intn(len(smsSenders))
-				result := smsSenders[senderNum].Send(userId)
+				result := smsSenders[senderNum].Send(&model.Message{
+					SenderId: userId,
+					ReceiverId: "-",
+					Content: "test",
+				})
 				if result.IsSuccess {
 					logs.Debug(atomic.AddInt64(&sendTimes, 1))
 					logs.Info("[%d] 发送器 | [%s] 用户请求成功：%s", senderNum, userId, result.Msg)
@@ -133,5 +92,35 @@ func TestMulSmsSender(t *testing.T) {
 			time.Sleep(10 * time.Millisecond)
 		}
 	}
-	select {}
+}
+
+func getSmsSender() *SmsSender{
+	redisHosts := []string{
+		"120.26.162.39:20000",
+		"120.26.162.39:20001",
+		"120.26.162.39:20002",
+		"120.26.162.39:20003",
+	}
+	kafkaHosts := []string{
+		"120.26.162.39:15000",
+		//"120.26.162.39:15001",
+		//"120.26.162.39:15002",
+	}
+	distributedMutexRedisHost := "127.0.0.1:6379"
+	hashLoop := middleware.NewHashLoop(30, map[int64]*redis.Pool{
+		0:  utils.GetRedisConnPool(redisHosts[0]),
+		8:  utils.GetRedisConnPool(redisHosts[1]),
+		16: utils.GetRedisConnPool(redisHosts[2]),
+		24: utils.GetRedisConnPool(redisHosts[3]),
+	})
+
+	distributedCache := middleware.NewDistributedCache(hashLoop)
+	return NewSmsSender(
+		distributedMutexRedisHost,
+		100,
+		60*time.Second,
+		middleware.NewTemporaryDataStorage(distributedCache),
+		middleware.NewMqSender(kafkaHosts),
+		"sms_sender",
+	)
 }

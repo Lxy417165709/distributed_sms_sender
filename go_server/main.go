@@ -36,7 +36,7 @@ func InitSingleSmsSender() {
 		//"120.26.162.39:15001",
 		//"120.26.162.39:15002",
 	}
-	distributedMutexRedisHost := "127.0.0.1:6379"
+	distributedMutexRedisHost := "120.26.162.39:21000"
 	hashLoop := middleware.NewHashLoop(30, map[int64]*redis.Pool{
 		0:  utils.GetRedisConnPool(redisHosts[0]),
 		8:  utils.GetRedisConnPool(redisHosts[1]),
@@ -47,7 +47,7 @@ func InitSingleSmsSender() {
 	distributedCache := middleware.NewDistributedCache(hashLoop)
 	controller.SingleSmsSender = device.NewSmsSender(
 		distributedMutexRedisHost,
-		100,
+		20,
 		60*time.Second,
 		middleware.NewTemporaryDataStorage(distributedCache),
 		middleware.NewMqSender(kafkaHosts),
@@ -58,6 +58,7 @@ func InitSingleSmsSender() {
 		return
 	}
 }
+
 
 func main() {
 	r := gin.Default()

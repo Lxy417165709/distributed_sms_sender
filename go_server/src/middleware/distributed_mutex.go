@@ -36,7 +36,7 @@ func (d *DistributedMutex) Lock() {
 	for {
 		if d.connPool.ActiveCount() >= d.connPool.MaxActive / 2{
 			logs.Warn(
-				"active conn over 50% max active conn, current active count of conn is %d",
+				"active conn over 50%% max active conn, current active count of conn is %d",
 				d.connPool.ActiveCount(),
 			)
 		}

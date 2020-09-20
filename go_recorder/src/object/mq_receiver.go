@@ -18,11 +18,9 @@ type MqReceiver struct {
 }
 
 func NewMqReceiver(kafkaHosts []string) *MqReceiver {
-	config := sarama.NewConfig()
-	config.Consumer.Offsets.Initial = sarama.OffsetNewest
 	consumer, err := sarama.NewConsumer(
 		kafkaHosts,
-		config,
+		nil,
 	)
 	if err != nil {
 		logs.Error(err)
@@ -50,12 +48,11 @@ func (m *MqReceiver) Receive(topic string) error{
 			logs.Error(err)
 			return err
 		}
-
 		go func(partitionConsumer sarama.PartitionConsumer) {
 			for {
 				select {
 				case msg := <-partitionConsumer.Messages():
-					m.Handle(msg)
+					go m.Handle(msg)
 				}
 			}
 		}(partitionConsumer)

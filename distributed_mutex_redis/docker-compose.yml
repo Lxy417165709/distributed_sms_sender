@@ -1,0 +1,12 @@
+version:
+    "3"
+  services:
+    mutex_redis_0:
+      image: redis
+      container_name: mutex_redis_0
+      restart: always
+      ports: 
+        - 21000:6379
+      volumes:
+        - $PWD/distributed_conf/redis.conf:/etc/redis/redis.conf
+      command: redis-server /etc/redis/redis.conf
