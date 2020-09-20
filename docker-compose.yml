@@ -2,19 +2,19 @@ version:
     '3'
 services:
   golang0:
-    build: ./go_server
+    build: ./go/go_server
     container_name: distributed_golang_0
     restart: always
     ports:
       - "10000:8080"
   golang1:
-    build: ./go_server
+    build: ./go/go_server
     container_name: distributed_golang_1
     restart: always
     ports:
       - "10001:8080"
   golang2:
-    build: ./go_server
+    build: ./go/go_server
     container_name: distributed_golang_2
     restart: always
     ports:

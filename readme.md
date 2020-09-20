@@ -32,3 +32,7 @@
 1. [grafana 数据可视化在线观看](http://120.26.162.39:35000/d/qhpaOPdMz/invoke_situation?orgId=1&from=now-1h&to=now)
 2. [架构](https://www.processon.com/view/link/5f64edc66376894e3278ceba)
 
+## 学习资料
+1. [sarama 文档](http://www.topgoer.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/go%E6%93%8D%E4%BD%9Ckafka/%E6%93%8D%E4%BD%9Ckafka.html)
+
+

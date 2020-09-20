@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf59b457-1e50-4d2b-983c-411912ff30dc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/device/sms_requester.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/form.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/post.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../go_recorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../go_recorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../go_recorder/src/object/mq_receiver.go" beforeDir="false" afterPath="$PROJECT_DIR$/../go_recorder/src/object/mq_receiver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../go_server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../go_server/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../go_server/src/controller/object.go" beforeDir="false" afterPath="$PROJECT_DIR$/../go_server/src/controller/single_object.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../go_server/src/device/sms_sender_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../go_server/src/device/sms_sender_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../go_server/src/middleware/distributed_mutex.go" beforeDir="false" afterPath="$PROJECT_DIR$/../go_server/src/middleware/distributed_mutex.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +54,11 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hasee\Desktop\sms_sender\go_sender\src" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="go build distributed/sender" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="go_sender" />
@@ -87,22 +91,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600598594645" />
-    <state width="1877" height="385" key="GridCell.Tab.0.bottom" timestamp="1600602810222">
+    <state width="1877" height="380" key="GridCell.Tab.0.bottom" timestamp="1600617019990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="385" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600602810222" />
-    <state width="1877" height="385" key="GridCell.Tab.0.center" timestamp="1600602810222">
+    <state width="1877" height="380" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600617019990" />
+    <state width="1877" height="380" key="GridCell.Tab.0.center" timestamp="1600617019989">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="385" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600602810222" />
-    <state width="1877" height="385" key="GridCell.Tab.0.left" timestamp="1600602810222">
+    <state width="1877" height="380" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600617019989" />
+    <state width="1877" height="380" key="GridCell.Tab.0.left" timestamp="1600617019989">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="385" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600602810222" />
-    <state width="1877" height="385" key="GridCell.Tab.0.right" timestamp="1600602810222">
+    <state width="1877" height="380" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600617019989" />
+    <state width="1877" height="380" key="GridCell.Tab.0.right" timestamp="1600617019990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="385" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600602810222" />
+    <state width="1877" height="380" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600617019990" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1600601123841">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
