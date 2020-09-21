@@ -14,6 +14,7 @@ import (
 
 type SmsSender struct {
 	redisHostOfDistributedMutex string
+	orderNumDistributedGenerator *middleware.OrderNumDistributedGenerator
 	userCertificationStorage    *middleware.TemporaryDataStorage
 	smsSenderDistributedMutex   *middleware.DistributedMutex
 	userDistributedMutex        map[string]*middleware.DistributedMutex
@@ -22,6 +23,7 @@ type SmsSender struct {
 	hasSendTimes                int64
 	mqSender                    *middleware.MqSender
 	mqTopic                     string
+	smsSenderId int
 }
 
 func NewSmsSender(
@@ -31,6 +33,8 @@ func NewSmsSender(
 	userCertificationStorage *middleware.TemporaryDataStorage,
 	mqSender *middleware.MqSender,
 	mqTopic string,
+	smsSenderId int,
+	orderNumDistributedGenerator *middleware.OrderNumDistributedGenerator,
 ) *SmsSender {
 	return &SmsSender{
 		redisHostOfDistributedMutex: redisHostOfDistributedMutex,
@@ -44,6 +48,8 @@ func NewSmsSender(
 		userDistributedMutex:     make(map[string]*middleware.DistributedMutex),
 		mqSender:                 mqSender,
 		mqTopic:                  mqTopic,
+		smsSenderId:smsSenderId,
+		orderNumDistributedGenerator:orderNumDistributedGenerator,
 	}
 }
 
@@ -69,7 +75,6 @@ func (s *SmsSender) Flush() error {
 }
 
 func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
-
 	// 双重判断，初始化用户的分布式锁
 	if s.userDistributedMutex[message.SenderId] == nil {
 		s.smsSenderDistributedMutex.Lock()
@@ -106,6 +111,18 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 			Msg:       "发送过快，请稍后发送",
 		}
 	}
+
+	message.OrderNum,err = s.orderNumDistributedGenerator.GetOrderNum()
+	if err != nil {
+		logs.Error(err)
+		return &model.ResultOfSend{
+			IsSuccess: false,
+			Msg:       err.Error(),
+		}
+	}
+	message.SmsSenderId = s.smsSenderId
+
+
 	messageJson, err := json.Marshal(message)
 	if err != nil {
 		logs.Error(err)

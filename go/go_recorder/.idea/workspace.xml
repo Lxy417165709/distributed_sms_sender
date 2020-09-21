@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4a35df2d-3418-4de6-b585-6b15b3dd96bc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../go_sender/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../go_sender/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4a35df2d-3418-4de6-b585-6b15b3dd96bc" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +16,7 @@
   </component>
   <component name="GOROOT" path="C:\Language\Go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -36,7 +34,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../go_sender" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -51,7 +49,7 @@
       <recent name="C:\Users\hasee\Desktop\sms_sender\go_recorder\src\object" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestMqReceiver in distributed/go_recorder/src/object (3)">
+  <component name="RunManager" selected="Go Test.TestMqReceiver in distributed/go_recorder/src/object (1)">
     <configuration name="TestMqReceiver in distributed/go_recorder/src/object (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go_recorder" />
       <working_directory value="$PROJECT_DIR$/src/object" />
@@ -63,7 +61,7 @@
       <pattern value="^\QTestMqReceiver\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestMqReceiver in distributed/go_recorder/src/object (2)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMqReceiver in distributed/go_recorder/src/object (3)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go_recorder" />
       <working_directory value="$PROJECT_DIR$/src/object" />
       <framework value="gotest" />
@@ -74,7 +72,7 @@
       <pattern value="^\QTestMqReceiver\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestMqReceiver in distributed/go_recorder/src/object (3)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMqReceiver in distributed/go_recorder/src/object (4)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go_recorder" />
       <working_directory value="$PROJECT_DIR$/src/object" />
       <framework value="gotest" />
@@ -109,11 +107,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestMqReceiver in distributed/go_recorder/src/object (3)" />
-        <item itemvalue="Go Test.TestMqReceiver in distributed/go_recorder/src/object (2)" />
         <item itemvalue="Go Test.TestMqReceiver in distributed/go_recorder/src/object (1)" />
         <item itemvalue="Go Test.TestMqReceiver in distributed/go_recorder/src/object" />
         <item itemvalue="Go Test.TestMqReceiver in distributed/go_recorder/src/object (5)" />
+        <item itemvalue="Go Test.TestMqReceiver in distributed/go_recorder/src/object (4)" />
+        <item itemvalue="Go Test.TestMqReceiver in distributed/go_recorder/src/object (3)" />
       </list>
     </recent_temporary>
   </component>
@@ -129,25 +127,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="659" y="454" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1600524605063" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600598516341">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600619955540">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600598516341" />
-    <state width="1877" height="412" key="GridCell.Tab.0.bottom" timestamp="1600607711034">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600619955540" />
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1600624103032">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="412" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600607711034" />
-    <state width="1877" height="412" key="GridCell.Tab.0.center" timestamp="1600607711034">
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600624103032" />
+    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1600624103032">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="412" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600607711034" />
-    <state width="1877" height="412" key="GridCell.Tab.0.left" timestamp="1600607711034">
+    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600624103032" />
+    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1600624103032">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="412" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600607711034" />
-    <state width="1877" height="412" key="GridCell.Tab.0.right" timestamp="1600607711034">
+    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600624103032" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1600624103032">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="412" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600607711034" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600624103032" />
   </component>
 </project>

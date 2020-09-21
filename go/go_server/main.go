@@ -25,6 +25,8 @@ func InitLogs() {
 }
 
 func InitSingleSmsSender() {
+
+
 	redisHosts := []string{
 		"120.26.162.39:20000",
 		"120.26.162.39:20001",
@@ -32,11 +34,13 @@ func InitSingleSmsSender() {
 		"120.26.162.39:20003",
 	}
 	kafkaHosts := []string{
-		"120.26.162.39:15000",
+		"qfstudio.net:15000",
+		//"120.26.162.39:15000",
 		//"120.26.162.39:15001",
 		//"120.26.162.39:15002",
 	}
 	distributedMutexRedisHost := "120.26.162.39:21000"
+	orderNumHost := "120.26.162.39:21000"
 	hashLoop := middleware.NewHashLoop(30, map[int64]*redis.Pool{
 		0:  utils.GetRedisConnPool(redisHosts[0]),
 		8:  utils.GetRedisConnPool(redisHosts[1]),
@@ -45,13 +49,24 @@ func InitSingleSmsSender() {
 	})
 
 	distributedCache := middleware.NewDistributedCache(hashLoop)
+
+
+	orderNumDistributedGenerator := middleware.NewOrderNumDistributedGenerator(
+		utils.GetRedisConnPool(orderNumHost),
+		"orderNum",
+	)
+
+
+
 	controller.SingleSmsSender = device.NewSmsSender(
 		distributedMutexRedisHost,
-		20,
+		200,
 		60*time.Second,
 		middleware.NewTemporaryDataStorage(distributedCache),
 		middleware.NewMqSender(kafkaHosts),
 		"sms_sender",
+		0,
+		orderNumDistributedGenerator,
 	)
 	if err := controller.SingleSmsSender.Flush(); err != nil {
 		logs.Error(err)

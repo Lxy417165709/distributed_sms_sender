@@ -42,7 +42,7 @@ func (m *MqReceiver) Receive(topic string) error{
 		partitionConsumer, err := m.kafkaConsumer.ConsumePartition(
 			topic,
 			partition,
-			sarama.OffsetOldest,
+			sarama.OffsetNewest,
 		)
 		if err != nil {
 			logs.Error(err)

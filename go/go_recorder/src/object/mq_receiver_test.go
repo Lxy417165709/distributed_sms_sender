@@ -12,7 +12,8 @@ func init(){
 
 func TestMqReceiver(t *testing.T) {
 	kafkaHosts := []string{
-		"120.26.162.39:15000",
+		"qfstudio.net:15000",
+		//"120.26.162.39:15000",
 		//"120.26.162.39:15001",
 		//"120.26.162.39:15002",
 	}

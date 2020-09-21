@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf59b457-1e50-4d2b-983c-411912ff30dc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/device/sms_requester.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/form.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/post.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../go_recorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../go_recorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="cf59b457-1e50-4d2b-983c-411912ff30dc" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +19,7 @@
   </component>
   <component name="GOROOT" path="C:\Language\Go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -44,7 +37,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../go_server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -91,22 +84,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600598594645" />
-    <state width="1877" height="380" key="GridCell.Tab.0.bottom" timestamp="1600617019990">
+    <state width="1860" height="379" key="GridCell.Tab.0.bottom" timestamp="1600704057776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="380" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600617019990" />
-    <state width="1877" height="380" key="GridCell.Tab.0.center" timestamp="1600617019989">
+    <state width="1860" height="379" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600704057776" />
+    <state width="1860" height="379" key="GridCell.Tab.0.center" timestamp="1600704057776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="380" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600617019989" />
-    <state width="1877" height="380" key="GridCell.Tab.0.left" timestamp="1600617019989">
+    <state width="1860" height="379" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600704057776" />
+    <state width="1860" height="379" key="GridCell.Tab.0.left" timestamp="1600704057776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="380" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600617019989" />
-    <state width="1877" height="380" key="GridCell.Tab.0.right" timestamp="1600617019990">
+    <state width="1860" height="379" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600704057776" />
+    <state width="1860" height="379" key="GridCell.Tab.0.right" timestamp="1600704057776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="380" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600617019990" />
+    <state width="1860" height="379" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600704057776" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1600601123841">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

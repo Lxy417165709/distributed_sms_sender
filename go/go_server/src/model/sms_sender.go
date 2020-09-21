@@ -19,4 +19,6 @@ type Message struct{
 	SenderId string
 	ReceiverId string
 	Content string
+	SmsSenderId int
+	OrderNum int
 }
