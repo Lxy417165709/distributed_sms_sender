@@ -30,6 +30,9 @@
 10. 代码优美、测试较完备。  `:)`
 
 
+## 工具
+1. 两台阿里云服务器(**感谢宏宏的阿里云服务器~**)
+
 ## 相关信息
 1. [grafana 数据可视化在线观看](http://120.26.162.39:35000/d/qhpaOPdMz/message_dashboard?orgId=1&refresh=10s)
 2. [架构](https://www.processon.com/view/link/5f64edc66376894e3278ceba)

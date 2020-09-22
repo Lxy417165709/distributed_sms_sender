@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	countOfSmsRequester = 30
+	countOfSmsRequester = 50
 	smsSenderUrl        = "http://127.0.0.1:8080/send_msg"
 )
 

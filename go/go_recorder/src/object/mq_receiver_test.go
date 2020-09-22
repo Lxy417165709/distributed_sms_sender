@@ -12,10 +12,11 @@ func init(){
 
 func TestMqReceiver(t *testing.T) {
 	kafkaHosts := []string{
-		"qfstudio.net:15000",
-		//"120.26.162.39:15000",
+		//"qfstudio.net:15000",
+		"120.26.162.39:15000",
 		//"120.26.162.39:15001",
 		//"120.26.162.39:15002",
+		//"120.26.162.39:9092",
 	}
 	topic := "sms_sender"
 	mqReceiver := NewMqReceiver(kafkaHosts)

@@ -45,7 +45,7 @@ func (s *SmsRequester) SendRepeatedly(senders, receivers, contents []string) {
 					string(result),
 				)
 			}()
-			time.Sleep(time.Duration(rand.Intn(2000)) * time.Millisecond)
+			time.Sleep(time.Duration(rand.Intn(5000)) * time.Millisecond)
 		}
 	}()
 }
