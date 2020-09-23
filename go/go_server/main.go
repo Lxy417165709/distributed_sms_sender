@@ -9,6 +9,8 @@ import (
 	"github.com/astaxie/beego/logs"
 	"github.com/gin-gonic/gin"
 	"github.com/gomodule/redigo/redis"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -16,7 +18,6 @@ const port = 8080
 
 func init() {
 	InitLogs()
-	InitSingleSmsSender()
 }
 
 func InitLogs() {
@@ -24,9 +25,7 @@ func InitLogs() {
 	logs.SetLogFuncCallDepth(3)
 }
 
-func InitSingleSmsSender() {
-
-
+func InitSingleSmsSender(smsSenderNum int) {
 	redisHosts := []string{
 		"120.26.162.39:20000",
 		"120.26.162.39:20001",
@@ -50,13 +49,10 @@ func InitSingleSmsSender() {
 
 	distributedCache := middleware.NewDistributedCache(hashLoop)
 
-
 	orderNumDistributedGenerator := middleware.NewOrderNumDistributedGenerator(
 		utils.GetRedisConnPool(orderNumHost),
 		"orderNum",
 	)
-
-
 
 	controller.SingleSmsSender = device.NewSmsSender(
 		distributedMutexRedisHost,
@@ -65,7 +61,7 @@ func InitSingleSmsSender() {
 		middleware.NewTemporaryDataStorage(distributedCache),
 		middleware.NewMqSender(kafkaHosts),
 		"sms_sender",
-		0,
+		smsSenderNum,
 		orderNumDistributedGenerator,
 	)
 	if err := controller.SingleSmsSender.Flush(); err != nil {
@@ -74,8 +70,11 @@ func InitSingleSmsSender() {
 	}
 }
 
+const DefaultSmsSenderNum = 0
 
 func main() {
+	InitSingleSmsSender(readSmsSenderNumFromOsArgs())
+
 	r := gin.Default()
 	r.GET("/test", controller.Test)
 	r.POST("/send_msg", controller.SendMessage)
@@ -85,3 +84,16 @@ func main() {
 	}
 }
 
+
+func readSmsSenderNumFromOsArgs() int{
+	smsSenderNum := DefaultSmsSenderNum
+	if len(os.Args) >= 2 {
+		num, err := strconv.Atoi(os.Args[1])
+		if err != nil {
+			logs.Error(err)
+			return smsSenderNum
+		}
+		smsSenderNum = num
+	}
+	return smsSenderNum
+}

@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	countOfSmsRequester = 50
-	smsSenderUrl        = "http://127.0.0.1:8080/send_msg"
+	countOfSmsRequester = 10
+	smsSenderUrl        = "http://120.26.162.39:5000/send_msg"
 )
 
 var (

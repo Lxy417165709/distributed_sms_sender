@@ -4,6 +4,7 @@
 ## 技术栈
 - [ ] 后端
 	- `Go`
+	
 - [ ] 存储
 	- `Redis`
 	- `Mysql`
@@ -30,8 +31,6 @@
 10. 代码优美、测试较完备。  `:)`
 
 
-## 工具
-1. 两台阿里云服务器(**感谢宏宏的阿里云服务器~**)
 
 ## 相关信息
 1. [grafana 数据可视化在线观看](http://120.26.162.39:35000/d/qhpaOPdMz/message_dashboard?orgId=1&refresh=10s)
@@ -39,5 +38,8 @@
 
 ## 学习资料
 1. [sarama 文档](http://www.topgoer.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/go%E6%93%8D%E4%BD%9Ckafka/%E6%93%8D%E4%BD%9Ckafka.html)
+
+## 感谢
+1. 感谢宏宏的阿里云服务器~
 
 

@@ -98,8 +98,6 @@ func (m *MqReceiver) Handle(msg *sarama.ConsumerMessage) {
 	)
 }
 
-
-
 func getDB() *gorm.DB {
 	user := "root"
 	password := "123456"

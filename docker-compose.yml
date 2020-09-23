@@ -1,94 +1,107 @@
 version:
   '3'
 services:
-distributed_golang_0:
-  build: ./go/go_server
-  container_name: distributed_golang_0
-  restart: always
-  ports:
-    - "10000:8080"
-distributed_golang_1:
-  build: ./go/go_server
-  container_name: distributed_golang_1
-  restart: always
-  ports:
-    - "10001:8080"
-distributed_golang_2:
-  build: ./go/go_server
-  container_name: distributed_golang_2
-  restart: always
-  ports:
-    - "10002:8080"
+  distributed_golang_0:
+    build: 
+      context: ./go/go_server
+    container_name: distributed_golang_0
+    restart: always
+    ports:
+      - "10000:8080"
+    entrypoint:
+      - './main'
+      - '0'
 
-nginx:
-  image: nginx
-  container_name: nginx
-  restart: always
-  ports:
-    - "5000:80"
-  volumes:
-    - $PWD/nginx/client:/usr/share/nginx/html 
-    - $PWD/nginx/conf.d:/etc/nginx/conf.d
+  distributed_golang_1:
+    build: 
+      context: ./go/go_server
+    container_name: distributed_golang_1
+    restart: always
+    ports:
+      - "10001:8080"
+    entrypoint:
+      - './main'
+      - '1'
 
-grafana:
-  image: grafana/grafana
-  container_name: grafana
-  restart: always
-  ports:
-    - 35000:3000
-  environment:
-    - TZ=Asia/Shanghai
+  distributed_golang_2:
+    build: 
+      context: ./go/go_server
+    container_name: distributed_golang_2
+    restart: always
+    ports:
+      - "10002:8080"
+    entrypoint:
+      - './main'
+      - '2'
 
-mysql:
-  image: mysql
-  container_name: mysql
-  security_opt:
-    - seccomp:unconfined
-  restart: always
-  environment:
-    MYSQL_ROOT_PASSWORD: "123456"
-  volumes:
-    - ./mysql/data:/var/lib/mysql
-  ports:
-    - 40000:3306
-  environment:
-    - TZ=Asia/Shanghai
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "5000:80"
+    volumes:
+      - $PWD/nginx/client:/usr/share/nginx/html 
+      - $PWD/nginx/conf.d:/etc/nginx/conf.d
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - 35000:3000
+    environment:
+      - TZ=Asia/Shanghai
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    security_opt:
+      - seccomp:unconfined
+    restart: always
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - 40000:3306
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=123456
 
 
-distributed_redis_0:
-  image: redis
-  container_name: distributed_redis_0
-  restart: always
-  ports: 
-    - 20000:6379
-  command: redis-server
-distributed_redis_1:
-  image: redis
-  container_name: distributed_redis_1
-  restart: always
-  ports: 
-    - 20001:6379
-  command: redis-server
-distributed_redis_2:
-  image: redis
-  container_name: distributed_redis_2
-  restart: always
-  ports: 
-    - 20002:6379
-  command: redis-server
-distributed_redis_3:
-  image: redis
-  container_name: distributed_redis_3
-  restart: always
-  ports: 
-    - 20003:6379
-  command: redis-server
+  distributed_redis_0:
+    image: redis
+    container_name: distributed_redis_0
+    restart: always
+    ports: 
+      - 20000:6379
+    command: redis-server
+  distributed_redis_1:
+    image: redis
+    container_name: distributed_redis_1
+    restart: always
+    ports: 
+      - 20001:6379
+    command: redis-server
+  distributed_redis_2:
+    image: redis
+    container_name: distributed_redis_2
+    restart: always
+    ports: 
+      - 20002:6379
+    command: redis-server
+  distributed_redis_3:
+    image: redis
+    container_name: distributed_redis_3
+    restart: always
+    ports: 
+      - 20003:6379
+    command: redis-server
 
-  
-mutex_redis_0:
-  image: redis
-  container_name: mutex_redis_0
-  restart: always
-  ports: 
-    - 21000:6379
-  command: redis-server
+    
+  mutex_redis_0:
+    image: redis
+    container_name: mutex_redis_0
+    restart: always
+    ports: 
+      - 21000:6379
+    command: redis-server
