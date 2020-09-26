@@ -16,7 +16,7 @@ type HashLoop struct{
 
 func NewHashLoop(maxNum int64,cacheRedisPool map[int64]*redis.Pool) *HashLoop {
 	var redisPoolSortedNums []int64
-	for num,_ := range cacheRedisPool{
+	for num := range cacheRedisPool{
 		redisPoolSortedNums = append(redisPoolSortedNums,num)
 		if num > maxNum{
 			logs.Warn("hash loop is invalid as its redis pool num is over max num")

@@ -1,9 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="9593be62-0f0c-43a4-91ad-83a368835aa4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/.eslintignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/.postcssrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/build/build.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/build/check-versions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/build/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/build/utils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/build/vue-loader.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/build/webpack.base.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/build/webpack.dev.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/build/webpack.prod.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/config/dev.env.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/config/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/config/prod.env.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/config/test.env.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/App.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/assets/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/components/HelloWorld.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/router/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/static/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/test/e2e/custom-assertions/elementCount.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/test/e2e/nightwatch.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/test/e2e/runner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/test/e2e/specs/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/test/unit/.eslintrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/test/unit/jest.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/test/unit/setup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/test/unit/specs/HelloWorld.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/go_recorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_recorder/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/go_recorder/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_recorder/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/go_recorder/src/model/invoke_situation.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_recorder/src/model/invoke_situation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/go_recorder/src/object/mq_receiver_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/go_sender/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_sender/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/go_sender/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_sender/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/go_server/src/middleware/hash_loop.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_server/src/middleware/hash_loop.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/client/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,20 +79,43 @@
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/vue/package.json" />
+  </component>
   <component name="ProjectId" id="1hgcW8JClPFG3Y93kVnOgmvd1i3" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/go_server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Vue" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hasee\Desktop\sms_sender" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -46,10 +131,56 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="684" y="343" key="#Notifications" timestamp="1601050339692">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="684" y="343" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1601050339692" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601052285201">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601052285201" />
+    <state x="703" y="372" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1601053870807">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="703" y="372" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1601053870807" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600436388505">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600436388505" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1601052285260">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601052285260" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1601052285260">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601052285260" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1601052285260">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601052285260" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1601052285260">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601052285260" />
+    <state x="612" y="161" key="SettingsEditor" timestamp="1601053981775">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="612" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1601053981775" />
   </component>
 </project>

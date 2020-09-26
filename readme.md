@@ -4,7 +4,6 @@
 ## 技术栈
 - [ ] 后端
 	- `Go`
-	
 - [ ] 存储
 	- `Redis`
 	- `Mysql`
@@ -34,6 +33,7 @@
 
 ## 相关信息
 1. [grafana 数据可视化在线观看](http://120.26.162.39:35000/d/qhpaOPdMz/message_dashboard?orgId=1&refresh=10s)
+	- [x] 账号：`123@qq.com`，密码：`123456`
 2. [架构](https://www.processon.com/view/link/5f64edc66376894e3278ceba)
 
 ## 学习资料

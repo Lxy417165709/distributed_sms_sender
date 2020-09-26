@@ -5,12 +5,12 @@ import (
 	"time"
 )
 
-type InvokeSituation struct{
+type InvokeSituation struct {
 	gorm.Model
-	UserId string
+	UserId     string
 	InvokeTime time.Time
 }
 
-func (*InvokeSituation)TableName() string{
+func (*InvokeSituation) TableName() string {
 	return "invoke_situation"
 }

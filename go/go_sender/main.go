@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	countOfSmsRequester = 10
+	countOfSmsRequester = 15
 	smsSenderUrl        = "http://120.26.162.39:5000/send_msg"
 )
 

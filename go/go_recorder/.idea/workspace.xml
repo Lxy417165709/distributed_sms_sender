@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a35df2d-3418-4de6-b585-6b15b3dd96bc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +36,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../deploy_file_generator" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -46,6 +45,8 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -130,25 +131,29 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="659" y="454" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1600524605063" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600783465420">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1601049740487">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600783465420" />
-    <state width="1877" height="477" key="GridCell.Tab.0.bottom" timestamp="1600792094689">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1601049740487" />
+    <state width="1877" height="326" key="GridCell.Tab.0.bottom" timestamp="1600878525280">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="477" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600792094689" />
-    <state width="1877" height="477" key="GridCell.Tab.0.center" timestamp="1600792094689">
+    <state width="1877" height="326" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600878525280" />
+    <state width="1877" height="326" key="GridCell.Tab.0.center" timestamp="1600878525280">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="477" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600792094689" />
-    <state width="1877" height="477" key="GridCell.Tab.0.left" timestamp="1600792094689">
+    <state width="1877" height="326" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600878525280" />
+    <state width="1877" height="326" key="GridCell.Tab.0.left" timestamp="1600878525280">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="477" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600792094689" />
-    <state width="1877" height="477" key="GridCell.Tab.0.right" timestamp="1600792094689">
+    <state width="1877" height="326" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600878525280" />
+    <state width="1877" height="326" key="GridCell.Tab.0.right" timestamp="1600878525280">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="477" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600792094689" />
+    <state width="1877" height="326" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600878525280" />
+    <state x="533" y="126" key="SettingsEditor" timestamp="1601049623789">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="533" y="126" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1601049623789" />
   </component>
 </project>
