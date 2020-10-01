@@ -4,6 +4,9 @@ import (
 	"time"
 )
 
+
+const MqMessage = "message"
+
 type Certification struct {
 	RemainSendTimes int
 	LastSendTime time.Time

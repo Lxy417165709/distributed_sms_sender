@@ -13,21 +13,48 @@ import (
 )
 
 type SmsSender struct {
-	redisHostOfDistributedMutex string
-	orderNumDistributedGenerator *middleware.OrderNumDistributedGenerator
-	userCertificationStorage    *middleware.TemporaryDataStorage
-	smsSenderDistributedMutex   *middleware.DistributedMutex
+	// 用户的分布式锁的创建信息
+	redisHostOfUserDistributedMutex string
+	keyPrefixOfUserDistributedMutex string
+	retryTimeOfUserDistributedMutex time.Duration
+
+	// 用户与分布式锁的映射关系
 	userDistributedMutex        map[string]*middleware.DistributedMutex
+
+	// 用户与凭证的映射关系
+	userCertificationStorage    *middleware.TemporaryDataStorage
+
+
+	// sms 订单号生成器
+	orderNumDistributedGenerator *middleware.OrderNumDistributedGenerator
+
+	// sms 的分布式锁
+	smsSenderDistributedMutex   *middleware.DistributedMutex
+
+	// 每个用户最多在 term 期间发送多少次短信
 	sendTimesPerTerm            int
+
+	// term 的时长
 	term                        time.Duration
+
+	// sms 已发送的短信次数
 	hasSendTimes                int64
+
+	// sms 的消息队列
 	mqSender                    *middleware.MqSender
+
+	// sms 发送消息到消息队列的 topic
 	mqTopic                     string
+
+	// sms 的 Id
 	smsSenderId int
 }
 
 func NewSmsSender(
-	redisHostOfDistributedMutex string,
+	redisHostOfUserDistributedMutex string,
+	keyPrefixOfUserDistributedMutex string,
+	retryTimeOfUserDistributedMutex time.Duration,
+
 	sendTimesPerTerm int,
 	term time.Duration,
 	userCertificationStorage *middleware.TemporaryDataStorage,
@@ -35,13 +62,12 @@ func NewSmsSender(
 	mqTopic string,
 	smsSenderId int,
 	orderNumDistributedGenerator *middleware.OrderNumDistributedGenerator,
+	smsSenderDistributedMutex *middleware.DistributedMutex,
 ) *SmsSender {
 	return &SmsSender{
-		redisHostOfDistributedMutex: redisHostOfDistributedMutex,
-		smsSenderDistributedMutex: middleware.NewDistributedMutex(
-			redisHostOfDistributedMutex,
-			"smsSenderLock",
-			1),
+		keyPrefixOfUserDistributedMutex:keyPrefixOfUserDistributedMutex,
+		redisHostOfUserDistributedMutex: redisHostOfUserDistributedMutex,
+		smsSenderDistributedMutex: smsSenderDistributedMutex,
 		sendTimesPerTerm:         sendTimesPerTerm,
 		term:                     term,
 		userCertificationStorage: userCertificationStorage,
@@ -50,6 +76,7 @@ func NewSmsSender(
 		mqTopic:                  mqTopic,
 		smsSenderId:smsSenderId,
 		orderNumDistributedGenerator:orderNumDistributedGenerator,
+		retryTimeOfUserDistributedMutex:retryTimeOfUserDistributedMutex,
 	}
 }
 
@@ -62,7 +89,7 @@ func (s *SmsSender) Flush() error {
 		logs.Error(err)
 		return err
 	}
-	conn, err := redis.Dial("tcp", s.redisHostOfDistributedMutex)
+	conn, err := redis.Dial("tcp", s.redisHostOfUserDistributedMutex)
 	if err != nil {
 		logs.Error(err)
 		return err
@@ -80,9 +107,9 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		s.smsSenderDistributedMutex.Lock()
 		if s.userDistributedMutex[message.SenderId] == nil {
 			s.userDistributedMutex[message.SenderId] = middleware.NewDistributedMutex(
-				s.redisHostOfDistributedMutex,
-				fmt.Sprintf("userLock:%s", message.SenderId),
-				1,
+				s.redisHostOfUserDistributedMutex,
+				fmt.Sprintf("%s:%s", s.keyPrefixOfUserDistributedMutex,message.SenderId),
+				s.retryTimeOfUserDistributedMutex,
 			)
 		}
 		s.smsSenderDistributedMutex.Unlock()
@@ -135,7 +162,7 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 	// 将存储任务交予消息队列
 	if err := s.mqSender.Send(&sarama.ProducerMessage{
 		Topic: s.mqTopic,
-		Key:   sarama.StringEncoder("message"),
+		Key:   sarama.StringEncoder(model.MqMessage),
 		Value: sarama.StringEncoder(messageJson),
 	}); err != nil {
 		logs.Error(err)
