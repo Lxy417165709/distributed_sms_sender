@@ -90,17 +90,6 @@ func InitSingleSmsSender(smsSenderNum int) {
 	}
 }
 
-func main() {
-	InitSingleSmsSender(readSmsSenderNumFromOsArgs())
-	r := gin.Default()
-	r.GET("/test", controller.Test)
-	r.POST("/send_msg", controller.SendMessage)
-	if err := r.Run(fmt.Sprintf(":%d", port)); err != nil {
-		logs.Error("Running go http server failed. :|")
-		return
-	}
-}
-
 func readSmsSenderNumFromOsArgs() int {
 	const defaultSmsSenderNum = 0
 	smsSenderNum := defaultSmsSenderNum
@@ -113,4 +102,17 @@ func readSmsSenderNumFromOsArgs() int {
 		smsSenderNum = num
 	}
 	return smsSenderNum
+}
+
+
+
+func main() {
+	InitSingleSmsSender(readSmsSenderNumFromOsArgs())
+	r := gin.Default()
+	r.GET("/test", controller.Test)
+	r.POST("/send_msg", controller.SendMessage)
+	if err := r.Run(fmt.Sprintf(":%d", port)); err != nil {
+		logs.Error("Running go http server failed. :|")
+		return
+	}
 }
