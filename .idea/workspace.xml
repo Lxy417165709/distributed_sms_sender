@@ -19,14 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9593be62-0f0c-43a4-91ad-83a368835aa4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/go/go_server/src/model/shopper.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/go_server/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_server/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/go_server/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_server/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/go_server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_server/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/go_server/src/device/sms_sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/go_server/src/device/sms_sender.go" afterDir="false" />
-    </list>
+    <list default="true" id="9593be62-0f0c-43a4-91ad-83a368835aa4" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
