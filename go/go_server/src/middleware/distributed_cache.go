@@ -4,9 +4,10 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	"strconv"
+
 	"github.com/astaxie/beego/logs"
 	"github.com/gomodule/redigo/redis"
-	"strconv"
 )
 
 type DistributedCache struct {
@@ -19,8 +20,8 @@ func NewDistributedCache(hashLoop *HashLoop) *DistributedCache {
 	}
 }
 
-func (d *DistributedCache) Flush() error{
-	if err := d.hashLoop.Flush();err!=nil{
+func (d *DistributedCache) Flush() error {
+	if err := d.hashLoop.Flush(); err != nil {
 		logs.Error(err)
 		return err
 	}
@@ -74,7 +75,7 @@ func getHashModNum(hashedStr string, mod int64) int64 {
 	hexHashStr := hex.EncodeToString(md5Hash.Sum(nil))
 	var hashNum int64
 	var countOfPart = 4
-	for i:=0;i<countOfPart;i++{
+	for i := 0; i < countOfPart; i++ {
 		hashNumPart, err := strconv.ParseInt(
 			hexHashStr[i*(md5HashStringLength/countOfPart):(i+1)*(md5HashStringLength/countOfPart)],
 			16,
@@ -84,7 +85,7 @@ func getHashModNum(hashedStr string, mod int64) int64 {
 			logs.Error(err)
 			return 0
 		}
-		hashNum += hashNumPart%mod
+		hashNum += hashNumPart % mod
 	}
-	return hashNum %mod
+	return hashNum % mod
 }
