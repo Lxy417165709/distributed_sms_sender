@@ -2,16 +2,17 @@
 这是一个分布式的短信发送器(短信发送没实现)。实现了一段时间内，同一用户最多发送 `max` 次短信的限制。
 
 ## 技术栈
-- [ ] 后端
-	- `Go`
-- [ ] 存储
-	- `Redis`
-	- `Mysql`
-- [ ] 中间件
-	- `Docker`
-	- `Kafka`
-	- `Nginx`
+- [ ] 前端
 	- `Grafana`
+- [ ] 网关
+	- `Nginx`
+- [ ] 后端
+	- 逻辑编写: `Go`
+	- 消息队列: `Kafka`
+	- 缓存: `Redis`
+    - 存储: `Mysql`
+- [ ] 部署
+	- `Docker`
 - [ ] 其他
 	- `yaml`
 	- `shell`
@@ -28,8 +29,6 @@
 8. 使用 `Grafana` 实现 `Mysql` 数据的图表化。
 9. 使用 `lua` + `redis` 实现分布式生成唯一订单号。
 10. 代码优美、测试较完备。  `:)`
-
-
 
 ## 相关信息
 1. [grafana 数据可视化在线观看](http://120.26.162.39:35000/d/qhpaOPdMz/message_dashboard?orgId=1&refresh=10s)
