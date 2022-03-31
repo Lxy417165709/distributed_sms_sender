@@ -68,9 +68,6 @@ func InitSingleSmsSender(smsSenderNum int) {
 		)
 	)
 
-
-
-
 	controller.SingleSmsSender = device.NewSmsSender(
 		userDistributedMutexRedisHost,
 		userLockKey,
