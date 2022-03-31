@@ -1,20 +1,21 @@
 package object
 
 import (
-	"distributed/go_recorder/src/model"
 	"encoding/json"
 	"fmt"
+	"time"
+
 	"github.com/Shopify/sarama"
 	"github.com/astaxie/beego/logs"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"time"
-)
 
+	"distributed/go_recorder/src/model"
+)
 
 type MqReceiver struct {
 	kafkaConsumer sarama.Consumer
-	db *gorm.DB
+	db            *gorm.DB
 }
 
 func NewMqReceiver(kafkaHosts []string) *MqReceiver {
@@ -28,11 +29,11 @@ func NewMqReceiver(kafkaHosts []string) *MqReceiver {
 	}
 	return &MqReceiver{
 		kafkaConsumer: consumer,
-		db: getDB(),
+		db:            getDB(),
 	}
 }
 
-func (m *MqReceiver) Receive(topic string) error{
+func (m *MqReceiver) Receive(topic string) error {
 	partitions, err := m.kafkaConsumer.Partitions(topic)
 	if err != nil {
 		logs.Error(err)
@@ -68,10 +69,10 @@ func (m *MqReceiver) Handle(msg *sarama.ConsumerMessage) {
 		msg.Offset,
 	)
 
-	switch string(msg.Key){
+	switch string(msg.Key) {
 	case "message":
 		var message model.Message
-		if err := json.Unmarshal(msg.Value,&message);err!=nil{
+		if err := json.Unmarshal(msg.Value, &message); err != nil {
 			logs.Error(err)
 			return
 		}
@@ -84,11 +85,10 @@ func (m *MqReceiver) Handle(msg *sarama.ConsumerMessage) {
 			m.db.CreateTable(&model.InvokeSituation{})
 		}
 		m.db.Create(&model.InvokeSituation{
-			UserId: string(msg.Key),
-			InvokeTime:time.Now(),
+			UserId:     string(msg.Key),
+			InvokeTime: time.Now(),
 		})
 	}
-
 
 	logs.Info(
 		"saving { key: %s, value: %s, offset: %d } success",
@@ -101,7 +101,7 @@ func (m *MqReceiver) Handle(msg *sarama.ConsumerMessage) {
 func getDB() *gorm.DB {
 	user := "root"
 	password := "123456"
-	host:="120.26.162.39:40000"
+	host := "120.26.162.39:40000"
 	dbName := "mysql"
 	db, err := gorm.Open(
 		"mysql",

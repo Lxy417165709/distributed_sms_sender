@@ -2,17 +2,15 @@ package model
 
 import "github.com/jinzhu/gorm"
 
-
-type Message struct{
+type Message struct {
 	gorm.Model
-	SenderId string
-	ReceiverId string
-	Content string
+	SenderId    string
+	ReceiverId  string
+	Content     string
 	SmsSenderId int
-	OrderNum int
+	OrderNum    int
 }
 
-
-func (m *Message)TableName()string {
+func (m *Message) TableName() string {
 	return "message"
 }
