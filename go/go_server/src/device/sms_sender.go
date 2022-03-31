@@ -1,15 +1,17 @@
 package device
 
 import (
-	"distributed/sms/src/middleware"
-	"distributed/sms/src/model"
 	"encoding/json"
 	"fmt"
+	"sync/atomic"
+	"time"
+
 	"github.com/Shopify/sarama"
 	"github.com/astaxie/beego/logs"
 	"github.com/gomodule/redigo/redis"
-	"sync/atomic"
-	"time"
+
+	"distributed/sms/src/middleware"
+	"distributed/sms/src/model"
 )
 
 type SmsSender struct {
@@ -19,32 +21,31 @@ type SmsSender struct {
 	retryTimeOfUserDistributedMutex time.Duration
 
 	// 用户与分布式锁的映射关系
-	userDistributedMutex        map[string]*middleware.DistributedMutex
+	userDistributedMutex map[string]*middleware.DistributedMutex
 
 	// 用户与凭证的映射关系
-	userCertificationStorage    *middleware.TemporaryDataStorage
-
+	userCertificationStorage *middleware.TemporaryDataStorage
 
 	// sms 订单号生成器
 	orderNumDistributedGenerator *middleware.OrderNumDistributedGenerator
 
 	// sms 的分布式锁
-	smsSenderDistributedMutex   *middleware.DistributedMutex
+	smsSenderDistributedMutex *middleware.DistributedMutex
 
 	// 每个用户最多在 term 期间发送多少次短信
-	sendTimesPerTerm            int
+	sendTimesPerTerm int
 
 	// term 的时长
-	term                        time.Duration
+	term time.Duration
 
 	// sms 已发送的短信次数
-	hasSendTimes                int64
+	hasSendTimes int64
 
 	// sms 的消息队列
-	mqSender                    *middleware.MqSender
+	mqSender *middleware.MqSender
 
 	// sms 发送消息到消息队列的 topic
-	mqTopic                     string
+	mqTopic string
 
 	// sms 的 Id
 	smsSenderId int
@@ -65,18 +66,18 @@ func NewSmsSender(
 	smsSenderDistributedMutex *middleware.DistributedMutex,
 ) *SmsSender {
 	return &SmsSender{
-		keyPrefixOfUserDistributedMutex:keyPrefixOfUserDistributedMutex,
+		keyPrefixOfUserDistributedMutex: keyPrefixOfUserDistributedMutex,
 		redisHostOfUserDistributedMutex: redisHostOfUserDistributedMutex,
-		smsSenderDistributedMutex: smsSenderDistributedMutex,
-		sendTimesPerTerm:         sendTimesPerTerm,
-		term:                     term,
-		userCertificationStorage: userCertificationStorage,
-		userDistributedMutex:     make(map[string]*middleware.DistributedMutex),
-		mqSender:                 mqSender,
-		mqTopic:                  mqTopic,
-		smsSenderId:smsSenderId,
-		orderNumDistributedGenerator:orderNumDistributedGenerator,
-		retryTimeOfUserDistributedMutex:retryTimeOfUserDistributedMutex,
+		smsSenderDistributedMutex:       smsSenderDistributedMutex,
+		sendTimesPerTerm:                sendTimesPerTerm,
+		term:                            term,
+		userCertificationStorage:        userCertificationStorage,
+		userDistributedMutex:            make(map[string]*middleware.DistributedMutex),
+		mqSender:                        mqSender,
+		mqTopic:                         mqTopic,
+		smsSenderId:                     smsSenderId,
+		orderNumDistributedGenerator:    orderNumDistributedGenerator,
+		retryTimeOfUserDistributedMutex: retryTimeOfUserDistributedMutex,
 	}
 }
 
@@ -108,7 +109,7 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		if s.userDistributedMutex[message.SenderId] == nil {
 			s.userDistributedMutex[message.SenderId] = middleware.NewDistributedMutex(
 				s.redisHostOfUserDistributedMutex,
-				fmt.Sprintf("%s:%s", s.keyPrefixOfUserDistributedMutex,message.SenderId),
+				fmt.Sprintf("%s:%s", s.keyPrefixOfUserDistributedMutex, message.SenderId),
 				s.retryTimeOfUserDistributedMutex,
 			)
 		}
@@ -139,7 +140,7 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		}
 	}
 
-	message.OrderNum,err = s.orderNumDistributedGenerator.GetOrderNum()
+	message.OrderNum, err = s.orderNumDistributedGenerator.GetOrderNum()
 	if err != nil {
 		logs.Error(err)
 		return &model.ResultOfSend{
@@ -148,7 +149,6 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		}
 	}
 	message.SmsSenderId = s.smsSenderId
-
 
 	messageJson, err := json.Marshal(message)
 	if err != nil {
