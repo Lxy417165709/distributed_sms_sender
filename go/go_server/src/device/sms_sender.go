@@ -104,7 +104,7 @@ func (s *SmsSender) Flush() error {
 }
 
 func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
-	// 1. 双重判断，初始化用户的分布式锁。 (其实直接初始化即可，并发初始化也没问题，后初始化的连接会覆盖前次初始化的连接)
+	// 1. 双重判断，初始化用户的分布式锁。 (其实直接初始化即可，后初始化的连接会覆盖前次初始化的连接，虽然存在重复初始化问题)
 	if s.userDistributedMutex[message.SenderId] == nil {
 		s.smsSenderDistributedMutex.Lock()
 		if s.userDistributedMutex[message.SenderId] == nil {
@@ -169,7 +169,7 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 	// 8. 将消息发布给消息队列。
 	if err := s.mqSender.Send(&sarama.ProducerMessage{
 		Topic: s.mqTopic,
-		Key:   sarama.StringEncoder(model.MqMessage),
+		Key:   sarama.StringEncode(model.MqMessage),
 		Value: sarama.StringEncoder(messageJson),
 	}); err != nil {
 		logs.Error(err)
