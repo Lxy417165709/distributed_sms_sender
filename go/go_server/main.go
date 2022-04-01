@@ -1,17 +1,19 @@
 package main
 
 import (
+	"fmt"
+	"os"
+	"strconv"
+	"time"
+
+	"github.com/astaxie/beego/logs"
+	"github.com/gin-gonic/gin"
+	"github.com/gomodule/redigo/redis"
+
 	"distributed/sms/src/controller"
 	"distributed/sms/src/device"
 	"distributed/sms/src/middleware"
 	"distributed/sms/src/utils"
-	"fmt"
-	"github.com/astaxie/beego/logs"
-	"github.com/gin-gonic/gin"
-	"github.com/gomodule/redigo/redis"
-	"os"
-	"strconv"
-	"time"
 )
 
 const port = 8080
@@ -27,16 +29,16 @@ func InitLogs() {
 
 func InitSingleSmsSender(smsSenderNum int) {
 	const (
-		sendTimesPerTerm = 200
-		term = 60 * time.Second
-		smsSenderMqTopic = "sms_sender"
-		smsSenderLockKey = "smsSenderLock"
-		userLockKey = "userLock"
-		smsSenderOrderNumKey = "orderNum"
-		userDistributedMutexRedisHost = "120.26.162.39:21000"
-		smsDistributedMutexRedisHost = "120.26.162.39:21000"
-		orderNumHost = "120.26.162.39:21000"
-		userDistributedMutexRetryTime = 100 * time.Millisecond
+		sendTimesPerTerm                   = 200
+		term                               = 60 * time.Second
+		smsSenderMqTopic                   = "sms_sender"
+		smsSenderLockKey                   = "smsSenderLock"
+		userLockKey                        = "userLock"
+		smsSenderOrderNumKey               = "orderNum"
+		userDistributedMutexRedisHost      = "120.26.162.39:21000"
+		smsDistributedMutexRedisHost       = "120.26.162.39:21000"
+		orderNumHost                       = "120.26.162.39:21000"
+		userDistributedMutexRetryTime      = 100 * time.Millisecond
 		smsSenderDistributedMutexRetryTime = 100 * time.Millisecond
 	)
 	var (
@@ -61,7 +63,7 @@ func InitSingleSmsSender(smsSenderNum int) {
 			16: utils.GetRedisConnPool(distributedCacheRedisHosts[2]),
 			24: utils.GetRedisConnPool(distributedCacheRedisHosts[3]),
 		})
-		distributedCache = middleware.NewDistributedCache(hashLoop)
+		distributedCache             = middleware.NewDistributedCache(hashLoop)
 		orderNumDistributedGenerator = middleware.NewOrderNumDistributedGenerator(
 			utils.GetRedisConnPool(orderNumHost),
 			smsSenderOrderNumKey,
@@ -100,8 +102,6 @@ func readSmsSenderNumFromOsArgs() int {
 	}
 	return smsSenderNum
 }
-
-
 
 func main() {
 	InitSingleSmsSender(readSmsSenderNumFromOsArgs())

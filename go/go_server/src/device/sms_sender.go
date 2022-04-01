@@ -104,7 +104,7 @@ func (s *SmsSender) Flush() error {
 }
 
 func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
-	// 1. 双重判断，初始化用户的分布式锁。
+	// 1. 双重判断，初始化用户的分布式锁。 (其实直接初始化即可，并发初始化也没问题，后初始化的连接会覆盖前次初始化的连接)
 	if s.userDistributedMutex[message.SenderId] == nil {
 		s.smsSenderDistributedMutex.Lock()
 		if s.userDistributedMutex[message.SenderId] == nil {
@@ -133,10 +133,11 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 
 	// 4. hasUserCertificationExpired 判断凭证是否过期。
 	if s.hasUserCertificationExpired(userCertification) {
+		// 4.1 凭证过期则更新剩余发送次数。
 		userCertification.RemainSendTimes = s.sendTimesPerTerm
 	}
 
-	// 5. 该用户没有剩余发送次数时，快速失败。 (限评操作)
+	// 5. 该用户没有剩余发送次数时，快速失败。 (限流操作)
 	if userCertification.RemainSendTimes == 0 {
 		return &model.ResultOfSend{
 			IsSuccess: false,
