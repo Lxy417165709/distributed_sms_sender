@@ -14,6 +14,7 @@ import (
 	"distributed/sms/src/model"
 )
 
+// SmsSender 短信发送器。
 type SmsSender struct {
 	// 用户的分布式锁的创建信息
 	redisHostOfUserDistributedMutex string
@@ -23,31 +24,31 @@ type SmsSender struct {
 	// 用户与分布式锁的映射关系
 	userDistributedMutex map[string]*middleware.DistributedMutex
 
-	// 用户与凭证的映射关系
+	// userCertificationStorage 用户与凭证的映射关系。
 	userCertificationStorage *middleware.TemporaryDataStorage
 
-	// sms 订单号生成器
+	// orderNumDistributedGenerator sms 订单号生成器。
 	orderNumDistributedGenerator *middleware.OrderNumDistributedGenerator
 
-	// sms 的分布式锁
+	// smsSenderDistributedMutex sms 的分布式锁。
 	smsSenderDistributedMutex *middleware.DistributedMutex
 
-	// 每个用户最多在 term 期间发送多少次短信
+	// sendTimesPerTerm 每个用户最多在 term 期间发送多少次短信。
 	sendTimesPerTerm int
 
-	// term 的时长
+	// term 时长。
 	term time.Duration
 
-	// sms 已发送的短信次数
+	// hasSendTimes sms 已发送的短信次数
 	hasSendTimes int64
 
-	// sms 的消息队列
+	// mqSender sms 的消息队列
 	mqSender *middleware.MqSender
 
-	// sms 发送消息到消息队列的 topic
+	// mqTopic sms 发送消息到消息队列的 topic
 	mqTopic string
 
-	// sms 的 Id
+	// smsSenderId sms 的 Id。
 	smsSenderId int
 }
 
@@ -103,7 +104,7 @@ func (s *SmsSender) Flush() error {
 }
 
 func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
-	// 双重判断，初始化用户的分布式锁
+	// 1. 双重判断，初始化用户的分布式锁。
 	if s.userDistributedMutex[message.SenderId] == nil {
 		s.smsSenderDistributedMutex.Lock()
 		if s.userDistributedMutex[message.SenderId] == nil {
@@ -116,10 +117,11 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		s.smsSenderDistributedMutex.Unlock()
 	}
 
-	// 这里进行加锁，防止发送消息的同一个用户同时位于临界区
+	// 2. 这里进行加锁，防止发送消息的同一个用户同时位于临界区。
 	s.userDistributedMutex[message.SenderId].Lock()
 	defer s.userDistributedMutex[message.SenderId].Unlock()
 
+	// 3. 获取用户凭证。
 	userCertification, err := s.getUserNewestCertification(message.SenderId)
 	if err != nil {
 		logs.Error(err)
@@ -129,10 +131,12 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		}
 	}
 
+	// 4. hasUserCertificationExpired 判断凭证是否过期。
 	if s.hasUserCertificationExpired(userCertification) {
 		userCertification.RemainSendTimes = s.sendTimesPerTerm
 	}
 
+	// 5. 该用户没有剩余发送次数时，快速失败。 (限评操作)
 	if userCertification.RemainSendTimes == 0 {
 		return &model.ResultOfSend{
 			IsSuccess: false,
@@ -140,6 +144,7 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		}
 	}
 
+	// 6. 为消息写入分布式订单号、发送器ID。
 	message.OrderNum, err = s.orderNumDistributedGenerator.GetOrderNum()
 	if err != nil {
 		logs.Error(err)
@@ -150,6 +155,7 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 	}
 	message.SmsSenderId = s.smsSenderId
 
+	// 7. 序列化消息。
 	messageJson, err := json.Marshal(message)
 	if err != nil {
 		logs.Error(err)
@@ -159,7 +165,7 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		}
 	}
 
-	// 将存储任务交予消息队列
+	// 8. 将消息发布给消息队列。
 	if err := s.mqSender.Send(&sarama.ProducerMessage{
 		Topic: s.mqTopic,
 		Key:   sarama.StringEncoder(model.MqMessage),
@@ -172,11 +178,12 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 		}
 	}
 
-	// 执行发送短信
+	// 9. 执行短信发送。
 	atomic.AddInt64(&s.hasSendTimes, 1)
+
+	// 10. 更新用户凭证。
 	userCertification.RemainSendTimes--
 	userCertification.LastSendTime = time.Now()
-
 	if err := s.userCertificationStorage.SetUserCertification(message.SenderId, userCertification); err != nil {
 		logs.Error(err)
 		return &model.ResultOfSend{
@@ -184,6 +191,8 @@ func (s *SmsSender) Send(message *model.Message) *model.ResultOfSend {
 			Msg:       "短信发送成功，但凭证保存失败",
 		}
 	}
+
+	// 11. 返回。
 	return &model.ResultOfSend{
 		IsSuccess: true,
 		Msg: fmt.Sprintf(

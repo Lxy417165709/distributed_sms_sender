@@ -5,6 +5,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
+// OrderNumDistributedGenerator 分布式订单号生成器。
 type OrderNumDistributedGenerator struct {
 	connPool    *redis.Pool
 	orderNumKey string
